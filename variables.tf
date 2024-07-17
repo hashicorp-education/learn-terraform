@@ -16,3 +16,17 @@ variable "instance_name" {
   default     = "Provisioned by Terraform"
 }
 
+variable "db_name" {
+  description = "DB Name"
+  default     = "db-claire"
+}
+
+variable "username" {
+  description = "DB Username"
+  default     = "claire_db"
+}
+
+variable "password" {
+  description = "DB Password"
+  default     = "3g_yI81udju#cc|pqep"
+}
