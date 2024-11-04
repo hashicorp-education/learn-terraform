@@ -1,31 +1,31 @@
-# Copyright (c) HashiCorp, Inc.
-# SPDX-License-Identifier: MPL-2.0
+terraform {
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "3.73.0"
+    }
+  }
 
-provider "aws" {
-  region = var.region
+  required_version = ">= 0.15.0"
 }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
+provider "google" {
+  project = "{{project-id}}"
+  region  = "us-central1"
+  zone    = "us-central1-c"
 }
 
-resource "aws_instance" "ubuntu" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
+module "project_services" {
+  source  = "terraform-google-modules/project-factory/google//modules/project_services"
+  version = "3.3.0"
 
-  tags = {
-    Name = var.instance_name
-  }
+  project_id = "{{project-id}}"
+
+  activate_apis = [
+    "compute.googleapis.com",
+    "oslogin.googleapis.com"
+  ]
+
+  disable_services_on_destroy = false
+  disable_dependent_services  = false
 }
