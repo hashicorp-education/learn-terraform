@@ -10,7 +10,7 @@ terraform {
 }
 
 provider "google" {
-  project = "{{project-id}}"
+  project = "engaged-hook-440719-g4"
   region  = "us-central1"
   zone    = "us-central1-c"
 }
