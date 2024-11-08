@@ -4,19 +4,20 @@
 terraform {
 
   cloud {
-    organization = "organization-name"
+    organization = "lb-terraform-prd"
 
     workspaces {
       name = "learn-terraform"
+      project = "learn-terraform-prj"
     }
   }
 
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.31.0"
+      version = ">= 5.70.0"
     }
   }
 
-  required_version = "~> 1.2"
+  required_version = ">= 1.2"
 }
